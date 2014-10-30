@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Music</string>
+    <string name="musicsList">音乐列表</string>
+    <string name="artistsList">歌手列表</string>
+    <string name="albumsList">专辑列表</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_quit">退出</string>
+    <string name="menu_scan">扫描本地</string>
+    <string name="title_activity_music_play">MusicPlayActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

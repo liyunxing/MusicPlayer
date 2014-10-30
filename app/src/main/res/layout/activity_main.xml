@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txtMusicsList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/musicsList"
+            android:textColor="@color/holo_blue_dark"
+            android:textSize="20.0dip" />
+
+        <TextView
+            android:id="@+id/txtArtistsList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/artistsList"
+            android:textColor="@color/holo_blue_dark"
+            android:textSize="20.0dip" />
+
+        <TextView
+            android:id="@+id/txtAlbumsList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/albumsList"
+            android:textColor="@color/holo_blue_dark"
+            android:textSize="20.0dip" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivMainTitleBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/main_title_bottom" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:background="@color/grey"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>
