@@ -1,7 +1,11 @@
 package com.james.musicplayer.service;
 
-
+import com.james.musicplayer.service.ICallback;
 interface IMusicControlService{
+
+    void registerCallback(ICallback callback);
+    void unregisterCallback(ICallback callback);
+
     void playNext();
     void playPrevious();
     void pauseMusic();

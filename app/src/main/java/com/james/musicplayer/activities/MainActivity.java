@@ -4,14 +4,12 @@ import java.util.ArrayList;
 
 import com.james.musicplayer.R;
 import com.james.musicplayer.adapter.MyViewPagerAdapter;
-import com.james.musicplayer.service.IMusicControlService;
-import com.james.musicplayer.tools.FileScanner;
+import com.james.musicplayer.util.FileScanner;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;

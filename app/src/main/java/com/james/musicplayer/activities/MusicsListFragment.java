@@ -1,17 +1,10 @@
 package com.james.musicplayer.activities;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 import com.james.musicplayer.R;
-import com.james.musicplayer.bean.MusicInfo;
 import com.james.musicplayer.db.DBInfo;
 import com.james.musicplayer.service.IMusicControlService;
-import com.james.musicplayer.tools.MusicListObserver;
-import com.james.musicplayer.tools.QuerTools;
+import com.james.musicplayer.util.MusicListObserver;
+import com.james.musicplayer.util.QuerTools;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -21,17 +14,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 public class MusicsListFragment extends Fragment {
 

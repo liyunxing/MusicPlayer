@@ -3,14 +3,11 @@
  * classes : com.james.musicplayer.tools.ScanMP3File
  * Ì·½¨½¨ Create at 2014-10-19 ÉÏÎç9:56:15
  */
-package com.james.musicplayer.tools;
+package com.james.musicplayer.util;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;

@@ -3,18 +3,12 @@
  * classes : com.james.musicplayer.tools.MusicInfoGetter
  * Ì·½¨½¨ Create at 2014-10-20 ÉÏÎç9:30:14 
  */
-package com.james.musicplayer.tools;
+package com.james.musicplayer.util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.TrackInfo;
 import android.provider.MediaStore;
 
 /**

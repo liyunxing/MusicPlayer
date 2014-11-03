@@ -5,7 +5,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/ArtistsListFragment.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MainActivity.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicPlayActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicsListFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicsListFragment.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/adapter/MyViewPagerAdapter.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/config/AppConstant.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/db/DBInfo.java" charset="GBK" />

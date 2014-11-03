@@ -3,7 +3,7 @@
  * classes : com.james.musicplayer.tools.ImageProvider
  * Ì·½¨½¨ Create at 2014-10-18 ÉÏÎç10:08:27
  */
-package com.james.musicplayer.tools;
+package com.james.musicplayer.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

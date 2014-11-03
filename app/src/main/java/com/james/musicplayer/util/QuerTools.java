@@ -3,7 +3,7 @@
  * classes : com.james.musicplayer.tools.QuerTools
  * 谭建建 Create at 2014-10-17 上午11:48:58
  */
-package com.james.musicplayer.tools;
+package com.james.musicplayer.util;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 /**
  * 数据库查询工具类 com.james.musicplayer.tools.QuerTools
@@ -37,12 +36,6 @@ public class QuerTools {
 	}
 
 	/**
-	 * @param uri
-	 *            Provider路径
-	 * @param order
-	 *            查询排序要求
-	 * @param limitCount
-	 *            是否限制最小列表数
 	 * @return 音乐信息实体列表
 	 */
 	public Cursor getMusicCursorFromDataBase() {
@@ -82,7 +75,7 @@ public class QuerTools {
 
 
 	/**
-	 * @param song_id 歌曲ID
+	 * @param _id 歌曲ID
 	 * @param uri Provider路径
 	 * @return 删除歌曲数量
 	 */

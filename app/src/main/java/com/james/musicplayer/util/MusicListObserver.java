@@ -3,13 +3,10 @@
  * classes : com.james.musicplayer.tools.MusicListObserver
  * Ì·½¨½¨ Create at 2014-10-20 ÏÂÎç2:30:14 
  */
-package com.james.musicplayer.tools;
-
-import com.james.musicplayer.db.DBInfo;
+package com.james.musicplayer.util;
 
 import android.content.Context;
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.os.Handler;
 
 /**
