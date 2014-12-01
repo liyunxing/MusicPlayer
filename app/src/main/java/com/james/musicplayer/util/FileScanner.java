@@ -1,7 +1,7 @@
 /**
  * ScanMP3File.java [V1.0.0]
  * classes : com.james.musicplayer.tools.ScanMP3File
- * Ì·½¨½¨ Create at 2014-10-19 ÉÏÎç9:56:15
+ * è°­å»ºå»º Create at 2014-10-19 ä¸Šåˆ9:56:15
  */
 package com.james.musicplayer.util;
 
@@ -17,8 +17,8 @@ import com.james.musicplayer.bean.MusicInfo;
 /**
  * com.james.musicplayer.tools.FileScanner
  * 
- * @author Ì·½¨½¨
- *         Create at 2014-10-19 ÉÏÎç9:56:15
+ * @author è°­å»ºå»º
+ *         Create at 2014-10-19 ä¸Šåˆ9:56:15
  */
 public class FileScanner {
 
@@ -56,16 +56,16 @@ public class FileScanner {
                 musicInfo.setPathString(mig.getPath());
                 new QuerTools(mContext).insertMusicToDatabase(musicInfo);            
             } catch (Exception e) {
-                Log.v(LOG, "´´½¨ÒôÀÖĞÅÏ¢Ê§°Ü£¡" + e.getMessage());
+                Log.v(LOG, "åˆ›å»ºéŸ³ä¹ä¿¡æ¯å¤±è´¥ï¼" + e.getMessage());
             }
         }
     }
 
     /**
      * @param rootPath
-     *            ¸ùÄ¿Â¼
+     *            æ ¹ç›®å½•
      * @param fileName
-     *            É¨ÃèÎÄ¼şºó×º
+     *            æ‰«ææ–‡ä»¶åç¼€
      */
     public File[] scanFile(File rootPath, final String filterName) {
 
@@ -78,7 +78,7 @@ public class FileScanner {
                     Log.v(LOG, pathname.getAbsolutePath());
                     return true;
                 }
-                if (pathname.isDirectory()) {//Èç¹ûÊÇÄ¿Â¼  
+                if (pathname.isDirectory()) {//å¦‚æœæ˜¯ç›®å½•  
                     scanFile(pathname, filterName);
                     return true;
                 } else {
@@ -89,12 +89,12 @@ public class FileScanner {
     }
 
     /**
-     * ¶à¸ñÊ½É¨Ãè
+     * å¤šæ ¼å¼æ‰«æ
      * 
      * @param rootPath
-     *            ¸ùÄ¿Â¼
+     *            æ ¹ç›®å½•
      * @param filterNames
-     *            ¸ñÊ½Êı×é
+     *            æ ¼å¼æ•°ç»„
      */
     public void scanFile(File rootPath, final String[] filterNames) {
         for (int i = 0; i < filterNames.length; i++) {

@@ -1,7 +1,7 @@
 /**
  * MusicProvider.java [V1.0.0]
  * classes : com.james.musicplayer.db.MusicProvider
- * Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç6:27:54
+ * è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ6:27:54
  */
 package com.james.musicplayer.db;
 
@@ -19,19 +19,19 @@ import android.text.TextUtils;
 /**
  * com.james.musicplayer.db.MusicProvider
  * 
- * @author Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç6:27:54
+ * @author è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ6:27:54
  */
 public class MusicProvider extends ContentProvider {
 
 	DBHelper helper;
 	SQLiteDatabase db;
 
-	private static UriMatcher matcher;// ´´½¨Æ¥ÅäÆ÷
+	private static UriMatcher matcher;// åˆ›å»ºåŒ¹é…å™¨
 	static {
-		// ³£Á¿UriMatcher.NO_MATCH±íÊ¾²»Æ¥ÅäÈÎºÎÂ·¾¶µÄ·µ»ØÂë(-1)
+		// å¸¸é‡UriMatcher.NO_MATCHè¡¨ç¤ºä¸åŒ¹é…ä»»ä½•è·¯å¾„çš„è¿”å›ç (-1)
 		matcher = new UriMatcher(UriMatcher.NO_MATCH);
-		matcher.addURI(AppConstant.MUSIC_PROVIDER_AUTOHORITY, DBInfo.TABLE_NAME, DBInfo.ITEMS);
-		matcher.addURI(AppConstant.MUSIC_PROVIDER_AUTOHORITY, DBInfo.TABLE_NAME+"/#", DBInfo.ITEM_ID);
+		matcher.addURI(AppConstant.ActionString.MUSIC_PROVIDER_AUTOHORITY, DBInfo.TABLE_NAME, DBInfo.ITEMS);
+		matcher.addURI(AppConstant.ActionString.MUSIC_PROVIDER_AUTOHORITY, DBInfo.TABLE_NAME+"/#", DBInfo.ITEM_ID);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class MusicProvider extends ContentProvider {
 		default:
 			throw new IllegalArgumentException("Unknown URI" + uri);
 		}
-		c.setNotificationUri(getContext().getContentResolver(), uri); //ÔÚ²éÑ¯Ê±£¬ËæÊ±¹Û²ìÊı¾İÊÇ·ñÓĞ±ä¶¯£¬Èç¹ûÓĞ±ä»¯¾Í»áÓĞ·µ»Ø¡£
+		c.setNotificationUri(getContext().getContentResolver(), uri); //åœ¨æŸ¥è¯¢æ—¶ï¼Œéšæ—¶è§‚å¯Ÿæ•°æ®æ˜¯å¦æœ‰å˜åŠ¨ï¼Œå¦‚æœæœ‰å˜åŒ–å°±ä¼šæœ‰è¿”å›ã€‚
 		return c;
 	}
 
@@ -86,8 +86,8 @@ public class MusicProvider extends ContentProvider {
         }
         rowId = db.insert(DBInfo.TABLE_NAME, DBInfo.ID, values);
         if (rowId > 0) {
-        	/*ContentUris ÀàÓÃÓÚ»ñÈ¡UriÂ·¾¶ºóÃæµÄID²¿·Ö
-        	1)ÎªÂ·¾¶¼ÓÉÏID: withAppendedId(uri, id)*/
+        	/*ContentUris ç±»ç”¨äºè·å–Uriè·¯å¾„åé¢çš„IDéƒ¨åˆ†
+        	1)ä¸ºè·¯å¾„åŠ ä¸ŠID: withAppendedId(uri, id)*/
             Uri noteUri = ContentUris.withAppendedId(DBInfo.MUSIC_URI, rowId);
             getContext().getContentResolver().notifyChange(noteUri, null);
             return noteUri;

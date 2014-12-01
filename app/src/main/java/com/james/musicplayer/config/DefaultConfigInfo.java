@@ -1,24 +1,24 @@
 /**
  * DefaultConfig.java [V1.0.0]
  * classes : com.james.musicplayer.config.DefaultConfig
- * Ì·½¨½¨ Create at 2014-10-17 ÉÏÎç11:16:54
+ * è°­å»ºå»º Create at 2014-10-17 ä¸Šåˆ11:16:54
  */
 package com.james.musicplayer.config;
 
 /**
- * Ä¬ÈÏÉèÖÃĞÅÏ¢
+ * é»˜è®¤è®¾ç½®ä¿¡æ¯
  * com.james.musicplayer.config.DefaultConfigInfo
- * @author Ì·½¨½¨ 
- * Create at 2014-10-17 ÉÏÎç11:16:54
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-17 ä¸Šåˆ11:16:54
  */
 public class DefaultConfigInfo {
 
-	static final String PLAY_MODE_NAME="palymode";//²¥·ÅÄ£Ê½Ãû
-	static final int PLAY_MODE=1;//²¥·ÅÄ£Ê½Ä¬ÈÏÖµ
+	static final String PLAY_MODE_NAME="palymode";//æ’­æ”¾æ¨¡å¼å
+	static final int PLAY_MODE=1;//æ’­æ”¾æ¨¡å¼é»˜è®¤å€¼
 	
-	static final String LAST_QUEUE_NAME="last_queue";//×îºó¶ÓÁĞÃû
-	static final int LAST_QUEUE=0;//×îºó¶ÓÁĞÄ¬ÈÏÖµ
+	static final String LAST_QUEUE_NAME="last_queue";//æœ€åé˜Ÿåˆ—å
+	static final int LAST_QUEUE=0;//æœ€åé˜Ÿåˆ—é»˜è®¤å€¼
 	
-	static final String LAST_INDEX_NAME="last_index";//×îºóµ×±êÃû
-	static final int LAST_INDEX=0;//×îºóµ×±êÄ¬ÈÏÖµ
+	static final String LAST_INDEX_NAME="last_index";//æœ€ååº•æ ‡å
+	static final int LAST_INDEX=0;//æœ€ååº•æ ‡é»˜è®¤å€¼
 }

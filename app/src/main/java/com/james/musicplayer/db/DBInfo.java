@@ -1,7 +1,7 @@
 /**
  * DBInfo.java [V1.0.0]
  * classes : com.james.musicplayer.bean.DBInfo
- * Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç6:03:10
+ * è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ6:03:10
  */
 package com.james.musicplayer.db;
 
@@ -10,19 +10,19 @@ import com.james.musicplayer.config.AppConstant;
 import android.net.Uri;
 
 /**
- * Êı¾İ¿âÏà¹ØĞÅÏ¢
+ * æ•°æ®åº“ç›¸å…³ä¿¡æ¯
  * com.james.musicplayer.bean.DBInfo
- * @author Ì·½¨½¨ 
- * Create at 2014-10-16 ÏÂÎç6:03:10
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-16 ä¸‹åˆ6:03:10
  */
 public class DBInfo {
 	
-	public static final int VERSION=1;//Êı¾İ¿â°æ±¾
+	public static final int VERSION=1;//æ•°æ®åº“ç‰ˆæœ¬
 
-	public static final String DBNAME="musics.db";//Êı¾İ¿âÃû
+	public static final String DBNAME="musics.db";//æ•°æ®åº“å
 	
 
-	//ÒôÀÖ±íÊôĞÔÖµ
+	//éŸ³ä¹è¡¨å±æ€§å€¼
 	public static String TABLE_NAME="musicinfo";
 //    public static String ID = "_id";
     public static String ID = "rowid";
@@ -33,7 +33,7 @@ public class DBInfo {
     public static final String  PATH= "path";
     
     
-    //providerµÄ²»Í¬µØÖ·¶ÔÓ¦µÄ·µ»ØÖµ
+    //providerçš„ä¸åŒåœ°å€å¯¹åº”çš„è¿”å›å€¼
     public static final int ITEMS = 1;
     public static final int ITEM_ID = 2;
      
@@ -41,7 +41,7 @@ public class DBInfo {
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.james.db";
     public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.james.db";
      
-    //ÒôÀÖ±íprovider uri
-    public static final Uri MUSIC_URI = Uri.parse("content://" + AppConstant.MUSIC_PROVIDER_AUTOHORITY + "/"+TABLE_NAME);
+    //éŸ³ä¹è¡¨provider uri
+    public static final Uri MUSIC_URI = Uri.parse("content://" + AppConstant.ActionString.MUSIC_PROVIDER_AUTOHORITY + "/"+TABLE_NAME);
     
 }

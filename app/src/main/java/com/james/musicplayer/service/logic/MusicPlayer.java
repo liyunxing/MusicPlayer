@@ -1,7 +1,6 @@
 package com.james.musicplayer.service.logic;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.RemoteException;
@@ -10,7 +9,8 @@ import com.james.musicplayer.bean.MusicInfo;
 import com.james.musicplayer.config.AppConstant;
 import com.james.musicplayer.config.ConfigManager;
 import com.james.musicplayer.db.DBInfo;
-import com.james.musicplayer.service.MusicBrodcastCode;
+import com.james.musicplayer.service.MusicPlayService;
+import com.james.musicplayer.util.DLOG;
 import com.james.musicplayer.util.QuerTools;
 
 import java.io.IOException;
@@ -19,282 +19,285 @@ import java.util.Random;
 
 /**
  * MusicPlayer [V1.0.0]
- * MusicPlayer¼Ì³ĞMediaPlayerÀà£¬²¢ÖØĞ´MediaPlayerÀàÖĞµÄpause()¼°start()·½·¨£¬ÔÚ·½·¨ÖĞ¸üĞÂµ±Ç°ÒôÀÖĞÅÏ¢¼°¸üĞÂÒôÀÖ²¥·Å½çÃæÖĞµÄÒôÀÖĞÅÏ¢
+ * MusicPlayerç»§æ‰¿MediaPlayerç±»ï¼Œå¹¶é‡å†™MediaPlayerç±»ä¸­çš„pause()åŠstart()æ–¹æ³•ï¼Œåœ¨æ–¹æ³•ä¸­æ›´æ–°å½“å‰éŸ³ä¹ä¿¡æ¯åŠæ›´æ–°éŸ³ä¹æ’­æ”¾ç•Œé¢ä¸­çš„éŸ³ä¹ä¿¡æ¯
  * classes : com.james.musicplayer.service.logic.MusicPlayer
- * @author Ì·½¨½¨ Create at 2014-10-18 ÉÏÎç10:48:39
+ *
+ * @author è°­å»ºå»º Create at 2014-10-18 ä¸Šåˆ10:48:39
  */
 public class MusicPlayer extends MediaPlayer implements MediaPlayer.OnCompletionListener {
 
-	private static boolean ISPLAYING = false;// ²¥·ÅÆ÷ÊÇ·ñÕıÔÚ²¥·ÅÒôÀÖ
+    private static boolean ISPLAYING = false;// æ’­æ”¾å™¨æ˜¯å¦æ­£åœ¨æ’­æ”¾éŸ³ä¹
 
-	// µ±Ç°²¥·ÅÒôÀÖĞÅÏ¢
-	private static ArrayList<MusicInfo> NOW_PLAYING_LIST;// µ±Ç°²¥·ÅÁĞ±í
-	private static int NOW_PLAYING_INDEX = 0;// µ±Ç°²¥·ÅÎ»ÖÃ
-	private static String NOW_PLAYING_TITLE = "";// µ±Ç°²¥·ÅÒôÀÖ±êÌâ
-	private static String NOW_PLAYING_ARTIST = "";// µ±Ç°²¥·ÅÒôÀÖËùÊô¸èÊÖ
-	private static String NOW_PLAYING_ALBUM = "";// µ±Ç°²¥·ÅÒôÀÖËùÊô×¨¼­
-	private static String NOW_PLAYING_PATH = "";// µ±Ç°²¥·ÅÒôÀÖËùÊôÂ·¾¶
-	private static long NOW_PLAYING_ID = 0;// µ±Ç°²¥·ÅÒôÀÖID
-	private static String NOW_DURATION = "";// µ±Ç°²¥·ÅÒôÀÖÊ±³¤
+    // å½“å‰æ’­æ”¾éŸ³ä¹ä¿¡æ¯
+    private static ArrayList<MusicInfo> NOW_PLAYING_LIST;// å½“å‰æ’­æ”¾åˆ—è¡¨
+    private static int NOW_PLAYING_INDEX = 0;// å½“å‰æ’­æ”¾ä½ç½®
+    private static String NOW_PLAYING_PATH = "";// å½“å‰æ’­æ”¾éŸ³ä¹æ‰€å±è·¯å¾„
 
-	private static int NOW_PLAYING_TIME = -1;// µ±Ç°²¥·ÅÒôÀÖÊ±¼ä
-	private static int CURRENT_PLAY_MOD = -1;// µ±Ç°Ñ­»·Ä£Ê½
+    private static int NOW_PLAYING_TIME = -1;// å½“å‰æ’­æ”¾éŸ³ä¹æ—¶é—´
+    private static int CURRENT_PLAY_MOD = -1;// å½“å‰å¾ªç¯æ¨¡å¼
 
-	// ²¥·ÅÆ÷
-	private static MusicPlayer mMusicPlayer;
+    //å½“å‰éŸ³ä¹
+    private static MusicInfo mMusicInfo;
+    // æ’­æ”¾å™¨
+    private static MusicPlayer mMusicPlayer;
 
-	private static ConfigManager mConfigManager;
-	// ²éÑ¯¹¤¾ßÀà
-	static QuerTools querTools;
-	//¼ÓËø¶ÔÏó
-	public static Object lockObj = new Object();
+    private static ConfigManager mConfigManager;
+    // æŸ¥è¯¢å·¥å…·ç±»
+    static QuerTools querTools;
+    //åŠ é”å¯¹è±¡
+    public static Object lockObj = new Object();
 
-	public MusicPlayer(Context context) {
-		Context mContext = context;
-	}
+    public MusicPlayer(Context context) {
+        Context mContext = context;
+    }
 
 
-	public static MusicPlayer ins(Context context)
-	{
+    public static MusicPlayer ins(Context context) {
+        mConfigManager = new ConfigManager(context);
+        querTools = new QuerTools(context);
+        mMusicInfo = new MusicInfo();
+        synchronized (lockObj) {
+            if (mMusicPlayer == null) {
+                mMusicPlayer = new MusicPlayer(context);
+            }
+        }
+        return mMusicPlayer;
+    }
 
-		mConfigManager = new ConfigManager(context);
-		querTools = new QuerTools(context);
-		synchronized (lockObj)
-		{
-			if (mMusicPlayer == null)
-			{
-				mMusicPlayer = new MusicPlayer(context);
-			}
-		}
-		return mMusicPlayer;
-	}
+    @Override
+    public void pause() throws IllegalStateException {
+        updateInfo();
+        super.pause();
+        setPlayBtnBg();
+    }
 
-	@Override
-	public void pause() throws IllegalStateException {
-		updateInfo();
-		super.pause();
-	}
+    @Override
+    public void start() throws IllegalStateException {
+        updateInfo();
+        super.start();
+        SeekThread.start();
+        // playæŒ‰é’®
+        setPlayBtnBg();
+    }
 
-	@Override
-	public void start() throws IllegalStateException {
-		updateInfo();
-		// ÉèÖÃÒôÀÖSeek,play°´Å¥£¬ÒôÀÖĞÅÏ¢
-		changeUIBrodcast(MusicBrodcastCode.CODE_SET_SEEKBAR_TXT_DURATION);
-		changeUIBrodcast(MusicBrodcastCode.CODE_CHANGE_PLAY_BUTTON_BG);
-		changeUIBrodcast(MusicBrodcastCode.CODE_CHANGE_MUSIC_INFO);
-		super.start();
-	}
+    private void updateInfo() {
+        mMusicInfo = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX);
+    }
 
-	private void updateInfo() {
-		NOW_PLAYING_TITLE = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX)
-				.getTitleString();
-		NOW_PLAYING_ARTIST = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX)
-				.getArtistString();
-		NOW_PLAYING_ALBUM = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX)
-				.getAlbumString();
-		NOW_PLAYING_ID = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX).getId();
-		NOW_DURATION = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX)
-				.getDuration();
-	}
-	/**
-	 * Éè¶¨²¥·ÅÑ­»·Ä£Ê½
-	 *
-	 * @param whitch
-	 *            Ñ­»·Ä£Ê½²ÎÊı
-	 * @throws android.os.RemoteException
-	 */
-	public void setPlayMod(int whitch) throws RemoteException {
-		mConfigManager.setPlayModConfig(whitch);
-	}
+    /**
+     * è®¾å®šæ’­æ”¾å¾ªç¯æ¨¡å¼
+     *
+     * @param whitch å¾ªç¯æ¨¡å¼å‚æ•°
+     * @throws android.os.RemoteException
+     */
+    public void setPlayMod(int whitch) throws RemoteException {
+        mConfigManager.setPlayModConfig(whitch);
+    }
 
-	public void resumeMusic() throws RemoteException {
-		if (NOW_PLAYING_INDEX >= 0) {
-			mMusicPlayer.start();
-		}
-		ISPLAYING = true;
-		setPlayBtnBg();
-	}
+    public void resumeMusic() throws RemoteException {
+        if (NOW_PLAYING_INDEX >= 0) {
+            mMusicPlayer.start();
+        }
+        ISPLAYING = true;
+        setPlayBtnBg();
+    }
 
-	public void playPrevious() throws RemoteException {
-		CURRENT_PLAY_MOD = getPlayMod();
-		switch (CURRENT_PLAY_MOD) {
-			case AppConstant.PLAY_MOD_LIST:
-				if (NOW_PLAYING_INDEX == 0) {
-					NOW_PLAYING_INDEX = 0;
-				} else {
-					NOW_PLAYING_INDEX = NOW_PLAYING_INDEX - 1;
-				}
-				break;
-			case AppConstant.PLAY_MOD_CIRCLE:
-				if (NOW_PLAYING_INDEX == 0) {
-					NOW_PLAYING_INDEX = NOW_PLAYING_LIST.size() - 1;
-				} else {
-					NOW_PLAYING_INDEX = NOW_PLAYING_INDEX - 1;
-				}
-				break;
-			case AppConstant.PLAY_MOD_RANDOM:
-				NOW_PLAYING_INDEX = new Random()
-						.nextInt(NOW_PLAYING_LIST.size() - 1);
-				break;
-			case AppConstant.PLAY_MOD_SINGLE:
-				break;
-			default:
-				NOW_PLAYING_INDEX = 0;
-				break;
-		}
-		playMusic();
-		changeUIBrodcast(MusicBrodcastCode.CODE_SET_SEEKBAR_MAX);
-		ISPLAYING = true;
-		setPlayBtnBg();
-	}
+    public void playPrevious() throws RemoteException {
+        CURRENT_PLAY_MOD = getPlayMod();
+        switch (CURRENT_PLAY_MOD) {
+            case AppConstant.PlayMode.PLAY_MOD_LIST:
+                if (NOW_PLAYING_INDEX == 0) {
+                    NOW_PLAYING_INDEX = 0;
+                } else {
+                    NOW_PLAYING_INDEX = NOW_PLAYING_INDEX - 1;
+                }
+                break;
+            case AppConstant.PlayMode.PLAY_MOD_CIRCLE:
+                if (NOW_PLAYING_INDEX == 0) {
+                    NOW_PLAYING_INDEX = NOW_PLAYING_LIST.size() - 1;
+                } else {
+                    NOW_PLAYING_INDEX = NOW_PLAYING_INDEX - 1;
+                }
+                break;
+            case AppConstant.PlayMode.PLAY_MOD_RANDOM:
+                NOW_PLAYING_INDEX = new Random()
+                        .nextInt(NOW_PLAYING_LIST.size() - 1);
+                break;
+            case AppConstant.PlayMode.PLAY_MOD_SINGLE:
+                break;
+            default:
+                NOW_PLAYING_INDEX = 0;
+                break;
+        }
+        playMusic();
+        ISPLAYING = true;
+        notifyChange(AppConstant.Msg.MSG_PLAYER_SONG_CHANGE,"");
+    }
 
-	public void playNext() throws RemoteException {
+    public void playNext() throws RemoteException {
+
+        CURRENT_PLAY_MOD = getPlayMod();
+        switch (CURRENT_PLAY_MOD) {
+            case AppConstant.PlayMode.PLAY_MOD_LIST:
+                if (NOW_PLAYING_INDEX == NOW_PLAYING_LIST.size() - 1) {
+                    mMusicPlayer.stop();
+                } else {
+                    NOW_PLAYING_INDEX = NOW_PLAYING_INDEX + 1;
+                }
+                break;
+            case AppConstant.PlayMode.PLAY_MOD_CIRCLE:
+                if (NOW_PLAYING_INDEX == NOW_PLAYING_LIST.size() - 1) {
+                    NOW_PLAYING_INDEX = 0;
+                } else {
+                    NOW_PLAYING_INDEX = NOW_PLAYING_INDEX + 1;
+                }
+                break;
+            case AppConstant.PlayMode.PLAY_MOD_RANDOM:
+                NOW_PLAYING_INDEX = new Random()
+                        .nextInt(NOW_PLAYING_LIST.size() - 1);
+                break;
+            case AppConstant.PlayMode.PLAY_MOD_SINGLE:
+                break;
+            default:
+                NOW_PLAYING_INDEX = 0;
+        }
+        playMusic();
+        ISPLAYING = true;
+        notifyChange(AppConstant.Msg.MSG_PLAYER_SONG_CHANGE, "");
+    }
+
+    public void pauseMusic() throws RemoteException {
+        mMusicPlayer.pause();
+        ISPLAYING = false;
+        setPlayBtnBg();
+    }
+
+    public void stopMusic() {
+        mMusicPlayer.stop();
+        ISPLAYING = false;
+        setPlayBtnBg();
+    }
+
+    /**
+     * æ’­æ”¾éŸ³ä¹
+     */
+    public void playMusic() {
+        if (NOW_PLAYING_LIST != null) {
+            NOW_PLAYING_PATH = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX).getPathString();
+
+            if (NOW_PLAYING_INDEX >= 0) {
+                try {
+                    mMusicPlayer.reset();
+                    mMusicPlayer.setDataSource(NOW_PLAYING_PATH);
+                    mMusicPlayer.prepare();
+                    mMusicPlayer.start();
+
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ISPLAYING = true;
+                mMusicPlayer.setOnCompletionListener(this);
+                notifyChange(AppConstant.Msg.MSG_PLAYER_SONG_CHANGE,"");
+                setPlayBtnBg();
+            }
+        }
+    }
+
+    // æ¯é¦–éŸ³ä¹æ’­æ”¾ç»“æŸåè°ƒç”¨
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        try {
+            playNext();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * å¾ªç¯å‘é€æ­Œæ›²çŠ¶æ€å¹¿æ’­
+     */
+    Thread SeekThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            if (mMusicPlayer.isPlaying()){
+                notifyChange(AppConstant.Msg.MSG_PLAYER_STATUS_CHANGE,mMusicPlayer.getCurrentSeekTime()+"");
+                DLOG.i("SeekThread", "run!" + mMusicPlayer.getCurrentSeekTime());
+                try {
+                    Thread.sleep(1000);
+                    run();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    });
+    // æ”¹å˜éŸ³ä¹æ’­æ”¾æŒ‰é’®
+    private void setPlayBtnBg() {
+        notifyChange(AppConstant.Msg.CODE_CHANGE_PLAY_BUTTON_BG, "");
+    }
+
+    public void seekTo(int where) {
+        DLOG.i("seekTo","where=="+where);
+        mMusicPlayer.seekTo(where);
+    }
+
+    public int getCurrentSeekTime() {
+        return mMusicPlayer.getCurrentPosition();
+    }
+
+    public int getPlayMod() throws RemoteException {
+        return mConfigManager.getPlayMod();
+    }
+
+    public MusicInfo getMusicInfo() throws RemoteException {
+        return mMusicInfo;
+    }
+
+    public void setNowPlayingList(int index) {
+        Cursor cursor = querTools.getMusicCursorFromDataBase();
+        NOW_PLAYING_LIST = getNowPlayingList(cursor);
+        NOW_PLAYING_INDEX = index;
+    }
+
+    public ArrayList<MusicInfo> getNowPlayingList(Cursor cursor) {
+        cursor.moveToFirst();
+        ArrayList<MusicInfo> resultList = new ArrayList<MusicInfo>();
+
+        while (!cursor.isAfterLast() && cursor.getCount() > 0) {
+            MusicInfo MusicInfo = new MusicInfo();
+            MusicInfo.setId(cursor.getLong(cursor.getColumnIndex("_id")));
+            MusicInfo.setTitleString(cursor.getString(cursor.getColumnIndex(DBInfo.TITLE)));
+            MusicInfo.setArtistString(cursor.getString(cursor.getColumnIndex(DBInfo.ARTIST)));
+            MusicInfo.setAlbumString(cursor.getString(cursor.getColumnIndex(DBInfo.ALBUM)));
+            MusicInfo.setDuration(cursor.getString(cursor.getColumnIndex(DBInfo.DURATION)));
+            MusicInfo.setPathString(cursor.getString(cursor.getColumnIndex(DBInfo.PATH)));
+            resultList.add(MusicInfo);
+            cursor.moveToNext();
+        }
+        return resultList;
+    }
 
 
-		CURRENT_PLAY_MOD = getPlayMod();
-		switch (CURRENT_PLAY_MOD) {
-			case AppConstant.PLAY_MOD_LIST:
-				if (NOW_PLAYING_INDEX == NOW_PLAYING_LIST.size() - 1) {
-					mMusicPlayer.stop();
-				} else {
-					NOW_PLAYING_INDEX = NOW_PLAYING_INDEX + 1;
-				}
-				break;
-			case AppConstant.PLAY_MOD_CIRCLE:
-				if (NOW_PLAYING_INDEX == NOW_PLAYING_LIST.size() - 1) {
-					NOW_PLAYING_INDEX = 0;
-				} else {
-					NOW_PLAYING_INDEX = NOW_PLAYING_INDEX + 1;
-				}
-				break;
-			case AppConstant.PLAY_MOD_RANDOM:
-				NOW_PLAYING_INDEX = new Random()
-						.nextInt(NOW_PLAYING_LIST.size() - 1);
-				break;
-			case AppConstant.PLAY_MOD_SINGLE:
-				break;
-			default:
-				NOW_PLAYING_INDEX = 0;
-		}
-		playMusic();
-		changeUIBrodcast(MusicBrodcastCode.CODE_SET_SEEKBAR_MAX);
-		ISPLAYING = true;
-		setPlayBtnBg();
-	}
+    /**
+     * å‘é€å¹¿æ’­
+     * @param type å¹¿æ’­ç±»å‹
+     * @param content å†…å®¹
+     */
+    public void notifyChange(int type,String content) {
 
-	public void pauseMusic() throws RemoteException {
-		mMusicPlayer.pause();
-		ISPLAYING = false;
-		setPlayBtnBg();
-	}
+        final int N = MusicPlayService.mCallbacks.beginBroadcast();
+        for (int i = 0; i < N; i++) {
+            try {
+                MusicPlayService.mCallbacks.getBroadcastItem(i)
+                        .callback(type, content);
+            } catch (RemoteException e) {
+            }
+        }
+        MusicPlayService.mCallbacks.finishBroadcast();
+        DLOG.i("notifyChange",type+"");
+    }
 
-	public void stopMusic() {
-		mMusicPlayer.stop();
-		ISPLAYING = false;
-		setPlayBtnBg();
-	}
-
-	/**
-	 * ²¥·ÅÒôÀÖ
-	 */
-	public void playMusic() {
-		if (NOW_PLAYING_LIST != null) {
-			NOW_PLAYING_PATH = NOW_PLAYING_LIST.get(NOW_PLAYING_INDEX).getPathString();
-
-			if (NOW_PLAYING_INDEX >= 0) {
-				try {
-					mMusicPlayer.reset();
-					mMusicPlayer.setDataSource(NOW_PLAYING_PATH);
-					mMusicPlayer.prepare();
-					mMusicPlayer.start();
-
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				ISPLAYING = true;
-				mMusicPlayer.setOnCompletionListener(this);
-				setPlayBtnBg();
-			}
-		}
-	}
-
-	// Ã¿Ê×ÒôÀÖ²¥·Å½áÊøºóµ÷ÓÃ
-	@Override
-	public void onCompletion(MediaPlayer mp) {
-		try {
-			playNext();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-	}
-
-	// ¸Ä±äÒôÀÖ²¥·Å°´Å¥
-	private void setPlayBtnBg() {
-		changeUIBrodcast(MusicBrodcastCode.CODE_CHANGE_PLAY_BUTTON_BG);
-	}
-
-	public void seekTo(int where) {
-		mMusicPlayer.seekTo(where);
-	}
-
-	public int getCurrentSeekTime() {
-		return mMusicPlayer.getCurrentPosition();
-	}
-
-	public void setCurrentSeekTime(int position) {
-
-		mMusicPlayer.setCurrentSeekTime(position);
-	}
-
-	public int getPlayMod() throws RemoteException {
-		return mConfigManager.getPlayMod();
-	}
-
-	public String getNowDurationString() {
-		return NOW_DURATION;
-	}
-
-	public int getNowDurationInt(){
-		return mMusicPlayer.getDuration();
-	}
-
-
-	/**
-	 * ·¢ËÍ¸Ä±ä²¥·Å½çÃæ¹ã²¥£¬Ê¹ÓÃMusicBrodcastCodeÖĞ¾²Ì¬²ÎÊı´«ÈëbrodcastCode
-	 *
-	 * @param brodcastCode
-	 *            ¼üÖµ¶ÔÖĞµÄÖµ
-	 */
-	private void changeUIBrodcast(int brodcastCode) {
-		Intent intent = new Intent();// ´´½¨Intent¶ÔÏó
-		intent.setAction(AppConstant.MUSIC_SERVICE_RECEIVER_ACTION);
-		intent.putExtra(MusicBrodcastCode.KEY, brodcastCode);
-		//sendBroadcast(intent);// ·¢ËÍ¹ã²¥
-	}
-
-	public void setNowPlayingList(int index) {
-		Cursor cursor =querTools.getMusicCursorFromDataBase();
-		NOW_PLAYING_LIST=getNowPlayingList(cursor);
-		NOW_PLAYING_INDEX=index;
-	}
-
-	public ArrayList<MusicInfo> getNowPlayingList(Cursor cursor) {
-		cursor.moveToFirst();
-		ArrayList<MusicInfo> resultList = new ArrayList<MusicInfo>();
-
-		while (!cursor.isAfterLast() && cursor.getCount() > 0) {
-			MusicInfo MusicInfo = new MusicInfo();
-			MusicInfo.setId(cursor.getLong(cursor.getColumnIndex("_id")));
-			MusicInfo.setTitleString(cursor.getString(cursor.getColumnIndex(DBInfo.TITLE)));
-			MusicInfo.setArtistString(cursor.getString(cursor.getColumnIndex(DBInfo.ARTIST)));
-			MusicInfo.setAlbumString(cursor.getString(cursor.getColumnIndex(DBInfo.ALBUM)));
-			MusicInfo.setDuration(cursor.getString(cursor.getColumnIndex(DBInfo.DURATION)));
-			MusicInfo.setPathString(cursor.getString(cursor.getColumnIndex(DBInfo.PATH)));
-			resultList.add(MusicInfo);
-			cursor.moveToNext();
-		}
-		return resultList;
-	}
 }

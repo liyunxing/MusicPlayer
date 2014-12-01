@@ -1,7 +1,7 @@
 /*
  * MusicListObserver.java [V 1.0.0]
  * classes : com.james.musicplayer.tools.MusicListObserver
- * Ì·½¨½¨ Create at 2014-10-20 ÏÂÎç2:30:14 
+ * è°­å»ºå»º Create at 2014-10-20 ä¸‹åˆ2:30:14 
  */
 package com.james.musicplayer.util;
 
@@ -11,8 +11,8 @@ import android.os.Handler;
 
 /**
  * com.james.musicplayer.tools.MusicListObserver
- * @author Ì·½¨½¨ 
- * Create at 2014-10-20 ÏÂÎç2:30:14
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-20 ä¸‹åˆ2:30:14
  */
 public class MusicListObserver extends ContentObserver{
 

@@ -9,27 +9,26 @@ import java.lang.ref.WeakReference;
 /**
  * Runtime [V1.0.0]
  * classes : com.james.musicplayer.runtime.MusicPlayerRuntime
- * Ì·½¨½¨ Create at 2014/11/3 0003 9:47
+ * è°­å»ºå»º Create at 2014/11/3 0003 9:47
  */
 public class PlayerRuntime {
-
-	/** SDK¿âµÄ¹ÜÀí¶ÔÏó£¬The s sdk. */
-	public static SDKHelper sSDK;
 
 	/** The application. */
 	public static Context application;
 
-	/** ´æ´¢preference¶ÔÏó£¬ The s prefer. */
+	/** å­˜å‚¨preferenceå¯¹è±¡ï¼Œ The s prefer. */
 	public static PreferenceHelper sPrefer;
 
-	/** ÒµÎñ´¦Àí¶ÔÏó The sd. */
-	public static SD sSD;
+	/** ä¸šåŠ¡å¤„ç†å¯¹è±¡ The sd. */
+	public static SD  sSD;
 
 	/** The sPlayerRuntime. */
 	static PlayerRuntime sPlayerRuntime = null;
 
 	/** The ref. */
 	private WeakReference<Context> mReference = null;
+
+    public static boolean DEBUG;
 
 	private PlayerRuntime(Context ctx)
 	{
@@ -63,18 +62,18 @@ public class PlayerRuntime {
 		}
 	}, "sInitThread");
 
-	// ÊÇ·ñ³õÊ¼»¯Íê
+	// æ˜¯å¦åˆå§‹åŒ–å®Œ
 	/** The m is init. */
 	public static boolean mIsInit = false;
 	/**
-	 * ³õÊ¼»¯ Inits the.
+	 * åˆå§‹åŒ– Inits the.
 	 */
 	public void init()
 	{
-		// ¹¹Ôì¶ÔÏó
+		// æ„é€ å¯¹è±¡
 		sPrefer = PreferenceHelper.ins(application);
-		sSDK = SDKHelper.instance();
 		sSD = SD.getInstance();
+        DEBUG=true;
 		synchronized (this)
 		{
 			if (!mIsInit)

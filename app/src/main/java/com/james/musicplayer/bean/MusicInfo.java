@@ -1,7 +1,7 @@
 /**
  * MusicInfo.java [V1.0.0]
  * classes : com.james.musicplayer.bean.MusicInfo
- * Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç6:02:55
+ * è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ6:02:55
  */
 package com.james.musicplayer.bean;
 
@@ -9,18 +9,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * ÒôÀÖĞÅÏ¢ÊµÌå com.james.musicplayer.bean.MusicInfo
+ * éŸ³ä¹ä¿¡æ¯å®ä½“ com.james.musicplayer.bean.MusicInfo
  * 
- * @author Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç6:02:55
+ * @author è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ6:02:55
  */
 public class MusicInfo implements Parcelable {
 
-    private long _id;//ÒôÀÖID
-    private String titleString;//ÒôÀÖ±êÌâ
-    private String artistString;//ÒôÀÖËùÊô¸èÊÖ
-    private String durationString;//ÒôÀÖÊ±³¤
-    private String albumString;//ÒôÀÖËùÊô×¨¼­
-    private String pathString;//ÒôÀÖËùÊôÂ·¾¶
+    private long _id;//éŸ³ä¹ID
+    private String titleString;//éŸ³ä¹æ ‡é¢˜
+    private String artistString;//éŸ³ä¹æ‰€å±æ­Œæ‰‹
+    private String durationString;//éŸ³ä¹æ—¶é•¿
+    private String albumString;//éŸ³ä¹æ‰€å±ä¸“è¾‘
+    private String pathString;//éŸ³ä¹æ‰€å±è·¯å¾„
 
     public MusicInfo() {}
 
@@ -58,7 +58,7 @@ public class MusicInfo implements Parcelable {
         dest.writeString(pathString);
     }
     
-    //Ìí¼ÓÒ»¸ö¾²Ì¬³ÉÔ±,ÃûÎªCREATOR,¸Ã¶ÔÏóÊµÏÖÁËParcelable.Creator½Ó¿Ú   
+    //æ·»åŠ ä¸€ä¸ªé™æ€æˆå‘˜,åä¸ºCREATOR,è¯¥å¯¹è±¡å®ç°äº†Parcelable.Creatoræ¥å£   
     public static final Creator<MusicInfo> CREATOR = new Creator<MusicInfo>() {
 
         @Override

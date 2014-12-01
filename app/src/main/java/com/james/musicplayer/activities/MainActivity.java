@@ -27,25 +27,25 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-	private ViewPager viewPager;// Ò³¿¨ÄÚÈİ
-	private ImageView ivMainTitleBottom;// ¶¯»­Í¼Æ¬
-	private TextView txtMusicsList, txtArtistsList, txtAlbumsList;// ±êÌâ
+	private ViewPager viewPager;// é¡µå¡å†…å®¹
+	private ImageView ivMainTitleBottom;// åŠ¨ç”»å›¾ç‰‡
+	private TextView txtMusicsList, txtArtistsList, txtAlbumsList;// æ ‡é¢˜
 
-	// ¸÷¸öÒ³¿¨
+	// å„ä¸ªé¡µå¡
 	private MusicsListFragment mMusicsFrag;
 	private ArtistsListFragment mArtistsFrag;
 	private AlbumsListFragment mAlbumsFrag;
 
-	private ArrayList<Fragment> fragmentList;// Ò³ÃæÁĞ±í
+	private ArrayList<Fragment> fragmentList;// é¡µé¢åˆ—è¡¨
 
-	// Í·±êÒ³¿¨±àºÅ
+	// å¤´æ ‡é¡µå¡ç¼–å·
 	private final int MUSICS_INDEX = 0;
 	private final int ARTISTS_INDEX = 1;
 	private final int ALBUMS_INDEX = 2;
 
-	private int offset = 0;// ¶¯»­Í¼Æ¬Æ«ÒÆÁ¿
-	private int currIndex = MUSICS_INDEX;// µ±Ç°Ò³¿¨±àºÅ
-	private int bmpW;// ¶¯»­Í¼Æ¬¿í¶È
+	private int offset = 0;// åŠ¨ç”»å›¾ç‰‡åç§»é‡
+	private int currIndex = MUSICS_INDEX;// å½“å‰é¡µå¡ç¼–å·
+	private int bmpW;// åŠ¨ç”»å›¾ç‰‡å®½åº¦
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	/**
-	 * ³õÊ¼»¯ViewPager
+	 * åˆå§‹åŒ–ViewPager
 	 */
 	private void InitViewPager() {
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -80,14 +80,14 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	/**
-	 * ³õÊ¼»¯Í·±ê
+	 * åˆå§‹åŒ–å¤´æ ‡
 	 */
 	private void InitTextView() {
 		txtMusicsList = (TextView) findViewById(R.id.txtMusicsList);
 		txtArtistsList = (TextView) findViewById(R.id.txtArtistsList);
 		txtAlbumsList = (TextView) findViewById(R.id.txtAlbumsList);
 
-		// ÉèÖÃÍ·±êµã»÷¼àÌı
+		// è®¾ç½®å¤´æ ‡ç‚¹å‡»ç›‘å¬
 		txtMusicsList.setOnClickListener(new MyOnClickListener(
 				this.MUSICS_INDEX));
 		txtArtistsList.setOnClickListener(new MyOnClickListener(
@@ -97,25 +97,25 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	/**
-	 * ³õÊ¼»¯¶¯»­
+	 * åˆå§‹åŒ–åŠ¨ç”»
 	 */
 	private void InitImageView() {
 		ivMainTitleBottom = (ImageView) findViewById(R.id.ivMainTitleBottom);
 		bmpW = BitmapFactory.decodeResource(getResources(),
-				R.drawable.main_title_bottom).getWidth();// »ñÈ¡Í¼Æ¬¿í¶È
+				R.drawable.main_title_bottom).getWidth();// è·å–å›¾ç‰‡å®½åº¦
 
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-		int screenW = dm.widthPixels;// »ñÈ¡·Ö±æÂÊ¿í¶È
-		offset = (screenW / 3 - bmpW) / 2;// ¼ÆËãÆ«ÒÆÁ¿
+		int screenW = dm.widthPixels;// è·å–åˆ†è¾¨ç‡å®½åº¦
+		offset = (screenW / 3 - bmpW) / 2;// è®¡ç®—åç§»é‡
 		Matrix matrix = new Matrix();
 		matrix.postTranslate(offset, 0);
-		ivMainTitleBottom.setImageMatrix(matrix);// ÉèÖÃ¶¯»­³õÊ¼Î»ÖÃ
+		ivMainTitleBottom.setImageMatrix(matrix);// è®¾ç½®åŠ¨ç”»åˆå§‹ä½ç½®
 	}
 
 	/**
-	 * Í·±êµã»÷¼àÌı
+	 * å¤´æ ‡ç‚¹å‡»ç›‘å¬
 	 */
 	private class MyOnClickListener implements OnClickListener {
 
@@ -132,8 +132,8 @@ public class MainActivity extends ActionBarActivity {
 
 	public class MyOnPageChangeListener implements OnPageChangeListener {
 
-		int one = offset * 2 + bmpW;// Ò³¿¨1 -> Ò³¿¨2 Æ«ÒÆÁ¿
-		int two = one * 2;// Ò³¿¨1 -> Ò³¿¨3 Æ«ÒÆÁ¿
+		int one = offset * 2 + bmpW;// é¡µå¡1 -> é¡µå¡2 åç§»é‡
+		int two = one * 2;// é¡µå¡1 -> é¡µå¡3 åç§»é‡
 
 		@Override
 		public void onPageScrollStateChanged(int arg0) {
@@ -150,11 +150,11 @@ public class MainActivity extends ActionBarActivity {
 			Animation animation = new TranslateAnimation(one * currIndex, one
 					* arg0, 0, 0);
 			currIndex = arg0;
-			animation.setFillAfter(true);// True:Í¼Æ¬Í£ÔÚ¶¯»­½áÊøÎ»ÖÃ
+			animation.setFillAfter(true);// True:å›¾ç‰‡åœåœ¨åŠ¨ç”»ç»“æŸä½ç½®
 			animation.setDuration(300);
 			ivMainTitleBottom.startAnimation(animation);
 			Toast.makeText(MainActivity.this,
-					"ÄúÑ¡ÔñÁË" + viewPager.getCurrentItem() + "Ò³¿¨",
+					"æ‚¨é€‰æ‹©äº†" + viewPager.getCurrentItem() + "é¡µå¡",
 					Toast.LENGTH_SHORT).show();
 		}
 

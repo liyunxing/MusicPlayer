@@ -1,7 +1,7 @@
 /**
  * ImageProvider.java [V1.0.0]
  * classes : com.james.musicplayer.tools.ImageProvider
- * Ì·½¨½¨ Create at 2014-10-18 ÉÏÎç10:08:27
+ * è°­å»ºå»º Create at 2014-10-18 ä¸Šåˆ10:08:27
  */
 package com.james.musicplayer.util;
 
@@ -10,10 +10,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 /**
- * »ñÈ¡ÒôÀÖÄÚÖÃÍ¼Æ¬
+ * è·å–éŸ³ä¹å†…ç½®å›¾ç‰‡
  * com.james.musicplayer.tools.ImageProvider
- * @author Ì·½¨½¨ 
- * Create at 2014-10-18 ÉÏÎç10:08:27
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-18 ä¸Šåˆ10:08:27
  */
 public class ImageProvider {
 	static Uri sArtworkUri = Uri

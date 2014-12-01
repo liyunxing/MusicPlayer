@@ -2,14 +2,34 @@
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/app/src/main/aidl/com/james/musicplayer/service/IMusicControlService.aidl" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/ArtistsListFragment.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MainActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicPlayActivity.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicsListFragment.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/adapter/MyViewPagerAdapter.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/config/AppConstant.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/db/DBInfo.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/service/MusicBrodcastCode.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/MusicPlayerApplication.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/AlbumsListFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/ArtistsListFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MainActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicPlayActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/activities/MusicsListFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/adapter/MusicListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/adapter/MyViewPagerAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/bean/MusicInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/config/AppConstant.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/config/ConfigManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/config/DefaultConfigInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/db/DBHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/db/DBInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/db/MusicProvider.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/runtime/PlayerRuntime.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/runtime/PreferenceHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/runtime/SDCardUtil.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/service/MusicPlayBinder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/service/MusicPlayService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/service/logic/MusicPlayer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/service/logic/SD.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/util/FileScanner.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/util/ImageProvider.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/util/Initer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/util/MusicInfoGetter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/util/MusicListObserver.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/james/musicplayer/util/QuerTools.java" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

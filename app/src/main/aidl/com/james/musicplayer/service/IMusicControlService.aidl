@@ -1,6 +1,7 @@
 package com.james.musicplayer.service;
 
 import com.james.musicplayer.service.ICallback;
+import com.james.musicplayer.bean.MusicInfo;
 interface IMusicControlService{
 
     void registerCallback(ICallback callback);
@@ -18,17 +19,11 @@ interface IMusicControlService{
     
     void seekTo(int where);
     int getCurrentSeekTime();
+    int getDuration();
     
     boolean isPlaying();
-    
-    String getNowPlayingTitle();
-    String getNowPlayingArtist();
-    
-    String getNowDurationString();
-    int getNowDurationInt();
-    
-    int getNowPlayingTime();
-    void setNowPlayingTime(int position);    
-    
+
+    MusicInfo getMusicInfo();
+
     void setNowPlayingList(int index);
 }

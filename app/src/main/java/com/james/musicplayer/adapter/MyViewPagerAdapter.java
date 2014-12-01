@@ -1,7 +1,7 @@
 /**
  * MyViewPagerAdapter.java [V1.0.0]
  * classes : com.james.musicplayer.adapter.MyViewPagerAdapter
- * Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç5:54:36
+ * è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ5:54:36
  */
 package com.james.musicplayer.adapter;
 
@@ -13,10 +13,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * Ê×Ò³ViewPagerÊÊÅäÆ÷
+ * é¦–é¡µViewPageré€‚é…å™¨
  * com.james.musicplayer.adapter.MyViewPagerAdapter
- * @author Ì·½¨½¨ 
- * Create at 2014-10-16 ÉÏÎç 9:14:36
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-16 ä¸Šåˆ 9:14:36
  */
 public class MyViewPagerAdapter extends FragmentPagerAdapter {
 

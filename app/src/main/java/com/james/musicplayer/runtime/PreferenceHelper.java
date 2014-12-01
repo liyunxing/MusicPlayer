@@ -4,9 +4,9 @@ import android.content.Context;
 
 /**
  * PreferenceHelper [V1.0.0]
- * ÊÖ»úÄÚ´æ´æ´¢¹¤¾ß
+ * æ‰‹æœºå†…å­˜å­˜å‚¨å·¥å…·
  * classes : com.james.musicplayer.runtime.PreferenceHelper
- * Ì·½¨½¨ Create at 2014/11/3 0003 10:28
+ * è°­å»ºå»º Create at 2014/11/3 0003 10:28
  */
 public class PreferenceHelper {
 

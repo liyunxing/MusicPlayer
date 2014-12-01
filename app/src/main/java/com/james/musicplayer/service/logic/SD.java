@@ -9,14 +9,15 @@ import android.net.ConnectivityManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.james.musicplayer.config.AppConstant;
 import com.james.musicplayer.runtime.PlayerRuntime;
 import com.james.musicplayer.service.MusicPlayService;
 
 /**
  * SD [V1.0.0]
- * ÒµÎñÂß¼­²Ù×÷Àà
+ * ä¸šåŠ¡é€»è¾‘æ“ä½œç±»
  * classes : com.james.musicplayer.service.logic.SD
- * Ì·½¨½¨ Create at 2014/11/3 0003 10:52
+ * è°­å»ºå»º Create at 2014/11/3 0003 10:52
  */
 public class SD {
 
@@ -35,7 +36,7 @@ public class SD {
 	 */
 	private boolean isInitLogic = false;
 
-	/** ²¥·ÅÆ÷. */
+	/** æ’­æ”¾å™¨. */
 	private MusicPlayer mMusicPlayer;
 
 	/**
@@ -60,7 +61,7 @@ public class SD {
 	}
 
 	/**
-	 * ³õÊ¼»¯.
+	 * åˆå§‹åŒ–.
 	 *
 	 * @param context the context
 	 * @throws Exception the exception
@@ -84,7 +85,7 @@ public class SD {
 
 
 	/**
-	 * ³õÊ¼»¯²¥·ÅÆ÷.
+	 * åˆå§‹åŒ–æ’­æ”¾å™¨.
 	 */
 	private void initPlayer() {
 		mMusicPlayer = MusicPlayer.ins(PlayerRuntime.application);
@@ -92,15 +93,13 @@ public class SD {
 
 	private void startMusicPlayService() {
 		Intent intent = new Intent();
-//		intent.setAction(AppConstant.MUSIC_PALY_SERVICE_ACTION);
 		intent.setClass(mContext, MusicPlayService.class);
 		mContext.startService(intent);
 	}
 
 	public void stopMusicPlayService() {
-		Intent intent = new Intent();
-//		intent.setAction(AppConstant.MUSIC_PALY_SERVICE_ACTION);
-		intent.setClass(mContext, MusicPlayService.class);
+        Intent intent = new Intent();
+        intent.setClass(mContext, MusicPlayService.class);
 		mContext.stopService(intent);
 	}
 
@@ -114,7 +113,7 @@ public class SD {
 
 	private void RegReceivers() {
 		networkRegister = true;
-		// ×¢²á
+		// æ³¨å†Œ
 		if (mReceiver == null) {
 			mFilter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
 			mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -138,24 +137,24 @@ public class SD {
 			String action = intent.getAction();
 			Log.d("onReceive", "PHONE_STATE:>>>>>>>>>>>>>>>>>>>>>>>>" + action);
 			if (action.equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
-				// ÔÚÓÃ»§°´ÏÂ²¦ºÅ¼ü¿ªÊ¼²¦´òµç»°Ê±£¬¸èÇúÍ£Ö¹²¥·Å
+				// åœ¨ç”¨æˆ·æŒ‰ä¸‹æ‹¨å·é”®å¼€å§‹æ‹¨æ‰“ç”µè¯æ—¶ï¼Œæ­Œæ›²åœæ­¢æ’­æ”¾
 
-				// Í£Ö¹ÒôÀÖ²¥·Å
-				if (PlayerRuntime.sSD.getDmPlayer().isPlaying()) {
-					PlayerRuntime.sSD.getDmPlayer().pause();
+				// åœæ­¢éŸ³ä¹æ’­æ”¾
+				if (PlayerRuntime.sSD.getPlayer().isPlaying()) {
+					PlayerRuntime.sSD.getPlayer().pause();
 					isPhoneClose = true;
 				}
 			} else if (action.equals("android.intent.action.PHONE_STATE")) {
 				/*
-				 * ½â¾öbug£º¾²Òô»òÕñ¶¯×´Ì¬ÏÂ£¬sim2À´µç£¬ÒôÀÖ²»Í£Ö¹¡£Ô­ÒòÊÇ´ËÊ±Í¨¹ıTelephonyManagerµÄgetCallState
-				 * ()µÃµ½µÄ×´Ì¬Îªidle
+				 * è§£å†³bugï¼šé™éŸ³æˆ–æŒ¯åŠ¨çŠ¶æ€ä¸‹ï¼Œsim2æ¥ç”µï¼ŒéŸ³ä¹ä¸åœæ­¢ã€‚åŸå› æ˜¯æ­¤æ—¶é€šè¿‡TelephonyManagerçš„getCallState
+				 * ()å¾—åˆ°çš„çŠ¶æ€ä¸ºidle
 				 */
 				String state = intent
 						.getStringExtra(TelephonyManager.EXTRA_STATE);
 				if (state.equalsIgnoreCase(TelephonyManager.EXTRA_STATE_IDLE)) {
 					if (isPhoneClose) {
-						// ²»ÊÇÓÃ»§ÔİÍ£µÄ
-						PlayerRuntime.sSD.getDmPlayer().playMusic();
+						// ä¸æ˜¯ç”¨æˆ·æš‚åœçš„
+						PlayerRuntime.sSD.getPlayer().playMusic();
 						// RT.sDM.getDmPlayer().startVolume(true);
 						isPhoneClose = false;
 					}
@@ -164,19 +163,19 @@ public class SD {
 
 				} else if (state
 						.equalsIgnoreCase(TelephonyManager.EXTRA_STATE_RINGING)) {
-					// Í£Ö¹ÒôÀÖ²¥·Å
-					if (PlayerRuntime.sSD.getDmPlayer().isPlaying()) {
+					// åœæ­¢éŸ³ä¹æ’­æ”¾
+					if (PlayerRuntime.sSD.getPlayer().isPlaying()) {
 						Log.d("onReceive",
 								"PHONE_STATE:cause pause>>>>>>>>>>>>>>>>>>>>>>>>"
 										+ action);
-						PlayerRuntime.sSD.getDmPlayer().pause();
+						PlayerRuntime.sSD.getPlayer().pause();
 						isPhoneClose = true;
 					}
 				}
 
 			} else if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
 				if (intent.getIntExtra("state", 0) == 1) {
-					/* ¶ú»ú²åÈë */
+					/* è€³æœºæ’å…¥ */
 //					if (PlayerRuntime.Setting.ActiveHeadsetControl) {
 //						DmMediaButtonRecv.regMediaBtnEventReceiver();
 //					}
@@ -184,12 +183,12 @@ public class SD {
 			} else {
 				if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent
 						.getAction())) {
-					// °Î¶ú»ú
-					PlayerRuntime.sSD.getDmPlayer().pause();
+					// æ‹”è€³æœº
+					PlayerRuntime.sSD.getPlayer().pause();
 				} else {
 					if (Intent.ACTION_SHUTDOWN.equals(intent.getAction())) {
-						// ¹Ø»úÊ±½øĞĞÒ»¸ö¸èÇúÔİÍ£²Ù×÷
-						PlayerRuntime.sSD.getDmPlayer().pause();
+						// å…³æœºæ—¶è¿›è¡Œä¸€ä¸ªæ­Œæ›²æš‚åœæ“ä½œ
+						PlayerRuntime.sSD.getPlayer().pause();
 					}
 				}
 			}
@@ -198,7 +197,7 @@ public class SD {
 
 	}
 
-	public MusicPlayer getDmPlayer() {
+	public MusicPlayer getPlayer() {
 		synchronized (this) {
 			check(mMusicPlayer);
 		}

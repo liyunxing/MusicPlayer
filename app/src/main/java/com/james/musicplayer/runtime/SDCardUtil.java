@@ -8,14 +8,14 @@ import java.io.File;
 /**
  * SDCardUtil [V1.0.0]
  * classes : com.james.musicplayer.runtime.SDCardUtil
- * Ì·½¨½¨ Create at 2014/11/3 0003 9:56
+ * è°­å»ºå»º Create at 2014/11/3 0003 9:56
  */
 public class SDCardUtil {
 
 	public static boolean isEnable = false;
 
 	/**
-	 * ¼ì²éSDCARDÊÇ·ñ´æÔÚ
+	 * æ£€æŸ¥SDCARDæ˜¯å¦å­˜åœ¨
 	 *
 	 * @param context
 	 * @return

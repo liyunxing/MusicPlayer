@@ -1,7 +1,7 @@
 /**
  * QuerTools.java [V1.0.0]
  * classes : com.james.musicplayer.tools.QuerTools
- * Ì·½¨½¨ Create at 2014-10-17 ÉÏÎç11:48:58
+ * è°­å»ºå»º Create at 2014-10-17 ä¸Šåˆ11:48:58
  */
 package com.james.musicplayer.util;
 
@@ -17,9 +17,9 @@ import android.database.Cursor;
 import android.net.Uri;
 
 /**
- * Êı¾İ¿â²éÑ¯¹¤¾ßÀà com.james.musicplayer.tools.QuerTools
+ * æ•°æ®åº“æŸ¥è¯¢å·¥å…·ç±» com.james.musicplayer.tools.QuerTools
  * 
- * @author Ì·½¨½¨ Create at 2014-10-17 ÉÏÎç11:48:58
+ * @author è°­å»ºå»º Create at 2014-10-17 ä¸Šåˆ11:48:58
  */
 public class QuerTools {
 
@@ -36,7 +36,7 @@ public class QuerTools {
 	}
 
 	/**
-	 * @return ÒôÀÖĞÅÏ¢ÊµÌåÁĞ±í
+	 * @return éŸ³ä¹ä¿¡æ¯å®ä½“åˆ—è¡¨
 	 */
 	public Cursor getMusicCursorFromDataBase() {
 		try {
@@ -75,9 +75,9 @@ public class QuerTools {
 
 
 	/**
-	 * @param _id ¸èÇúID
-	 * @param uri ProviderÂ·¾¶
-	 * @return É¾³ı¸èÇúÊıÁ¿
+	 * @param _id æ­Œæ›²ID
+	 * @param uri Providerè·¯å¾„
+	 * @return åˆ é™¤æ­Œæ›²æ•°é‡
 	 */
 	public int removeMusicFromDatabase(long _id, Uri uri) {
 		try {

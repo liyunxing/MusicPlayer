@@ -1,7 +1,7 @@
 /**
  * DBHelper.java [V1.0.0]
  * classes : com.james.musicplayer.db.DBHelper
- * Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç5:54:36
+ * è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ5:54:36
  */
 package com.james.musicplayer.db;
 
@@ -12,10 +12,10 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * ÒôÀÖÊı¾İ¿â¸¨ÖúÀà
+ * éŸ³ä¹æ•°æ®åº“è¾…åŠ©ç±»
  * com.james.musicplayer.db.DBHelper
- * @author Ì·½¨½¨ 
- * Create at 2014-10-16 ÏÂÎç5:54:36
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-16 ä¸‹åˆ5:54:36
  */
 public class DBHelper extends SQLiteOpenHelper{
 

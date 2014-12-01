@@ -1,7 +1,7 @@
 /**
  * MusicPlayService.java [V1.0.0]
  * classes : com.james.musicplayer.service.MusicPlayService
- * Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç8:32:02
+ * è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ8:32:02
  */
 package com.james.musicplayer.service;
 
@@ -13,13 +13,13 @@ import android.os.RemoteCallbackList;
 import javax.security.auth.callback.Callback;
 
 /**
- * ÒôÀÖ²¥·Å·şÎñÀà£¬²¥·ÅÒôÀÖ£¬Í¬Ê±»áÏòÖ÷Ïß³Ì·¢ËÍ¹ã²¥¸Ä±äUI com.james.musicplayer.service.MusicPlayService
+ * éŸ³ä¹æ’­æ”¾æœåŠ¡ç±»ï¼Œæ’­æ”¾éŸ³ä¹ï¼ŒåŒæ—¶ä¼šå‘ä¸»çº¿ç¨‹å‘é€å¹¿æ’­æ”¹å˜UI com.james.musicplayer.service.MusicPlayService
  * 
- * @author Ì·½¨½¨ Create at 2014-10-16 ÏÂÎç8:32:02
+ * @author è°­å»ºå»º Create at 2014-10-16 ä¸‹åˆ8:32:02
  */
 public class MusicPlayService extends Service implements Callback{
 
-	// »î¶¯»Øµ÷·şÎñ·½·¨
+	// æ´»åŠ¨å›è°ƒæœåŠ¡æ–¹æ³•
 	private MusicPlayBinder mMusicPlayBinder = new MusicPlayBinder();
 
 	public static RemoteCallbackList<ICallback> mCallbacks=new RemoteCallbackList<ICallback>();
@@ -34,7 +34,7 @@ public class MusicPlayService extends Service implements Callback{
 		if (mMusicPlayBinder != null) {
 			return mMusicPlayBinder;
 		}
-		return null;
+		return new MusicPlayBinder();
 	}
 
 }

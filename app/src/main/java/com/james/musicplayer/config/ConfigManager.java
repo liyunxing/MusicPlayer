@@ -1,7 +1,7 @@
 /**
  * ConfigManager.java [V1.0.0]
  * classes : com.james.musicplayer.config.ConfigManager
- * Ì·½¨½¨ Create at 2014-10-17 ÉÏÎç11:08:23
+ * è°­å»ºå»º Create at 2014-10-17 ä¸Šåˆ11:08:23
  */
 package com.james.musicplayer.config;
 
@@ -10,10 +10,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * ÉèÖÃĞÅÏ¢¹ÜÀíÀà
+ * è®¾ç½®ä¿¡æ¯ç®¡ç†ç±»
  * com.james.musicplayer.config.ConfigManager
- * @author Ì·½¨½¨ 
- * Create at 2014-10-17 ÉÏÎç11:08:23
+ * @author è°­å»ºå»º 
+ * Create at 2014-10-17 ä¸Šåˆ11:08:23
  */
 public class ConfigManager {
 	private Context mContext;

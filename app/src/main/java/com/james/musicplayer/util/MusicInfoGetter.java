@@ -1,7 +1,7 @@
 /*
  * MusicInfoGetter.java [V 1.0.0]
  * classes : com.james.musicplayer.tools.MusicInfoGetter
- * Ì·½¨½¨ Create at 2014-10-20 ÉÏÎç9:30:14 
+ * è°­å»ºå»º Create at 2014-10-20 ä¸Šåˆ9:30:14 
  */
 package com.james.musicplayer.util;
 
@@ -12,11 +12,11 @@ import android.database.Cursor;
 import android.provider.MediaStore;
 
 /**
- * ´Ó¸èÇúÖĞ»ñÈ¡¸èÇúĞÅÏ¢
+ * ä»æ­Œæ›²ä¸­è·å–æ­Œæ›²ä¿¡æ¯
  * com.james.musicplayer.tools.MusicInfoGetter
  * 
- * @author Ì·½¨½¨
- *         Create at 2014-10-20 ÉÏÎç9:30:14
+ * @author è°­å»ºå»º
+ *         Create at 2014-10-20 ä¸Šåˆ9:30:14
  */
 public class MusicInfoGetter {
 

@@ -53,12 +53,12 @@ public class MusicsListFragment extends Fragment {
             }            
         });
         
-        //×¢²áObserver
+        //æ³¨å†ŒObserver
         mObserver = new MusicListObserver(getActivity(), mHandler);
         mResolver = getActivity().getContentResolver();
         mResolver.registerContentObserver(DBInfo.MUSIC_URI, true, mObserver);
         
-        //Ö´ĞĞÊı¾İ¿â²éÑ¯
+        //æ‰§è¡Œæ•°æ®åº“æŸ¥è¯¢
         queryDB();
     }
 

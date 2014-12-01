@@ -2,9 +2,11 @@ package com.james.musicplayer.activities;
 
 import com.james.musicplayer.R;
 import com.james.musicplayer.R.layout;
+import com.james.musicplayer.bean.MusicInfo;
 import com.james.musicplayer.config.AppConstant;
+import com.james.musicplayer.service.ICallback;
 import com.james.musicplayer.service.IMusicControlService;
-import com.james.musicplayer.service.MusicBrodcastCode;
+import com.james.musicplayer.util.DLOG;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -32,15 +34,14 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class MusicPlayActivity extends ActionBarActivity implements OnClickListener {
 
     private ImageButton ibtnLast, ibtnNext;
-    private ImageView ivPlay;    
+    private ImageView ivPlay;
     private TextView txtTitle, txtArtist, txtSeekDuration, txtSeekPlayTime;
-    
+
     private SeekBar seekBar;
     private Handler mSeekHandler = new Handler();
 
     private IMusicControlService mMusicService;
-
-    private MusicPlayServiceReceiver mReceiver;
+    private MusicCallBack mMusicCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
 
         initSeekBar();
 
+        mMusicCallBack=new MusicCallBack();
+
         ibtnLast.setOnClickListener(this);
         ivPlay.setOnClickListener(this);
         ibtnNext.setOnClickListener(this);
@@ -68,7 +71,7 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
     private void playMusic() {
         int index = getIntent().getIntExtra("position", 0);
         try {
-            if(mMusicService.isPlaying()){
+            if (mMusicService.isPlaying()) {
                 mMusicService.stopMusic();
             }
             mMusicService.setNowPlayingList(index);
@@ -76,36 +79,11 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        
-        mSeekHandler.post(new Runnable() {
 
-            @Override
-            public void run() {
-                try {
-                    if (seekBar != null && mMusicService.isPlaying()) {
-                        int time=mMusicService.getNowPlayingTime();
-                        seekBar.setProgress(time);
-                        setSeekTxt(time);
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-                mSeekHandler.postDelayed(this, 1000);
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        mReceiver = new MusicPlayServiceReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(AppConstant.MUSIC_SERVICE_RECEIVER_ACTION);
-        registerReceiver(mReceiver, filter);
-        super.onStart();
     }
 
     private void connection() {
-        Intent intent = new Intent(AppConstant.MUSIC_PALY_SERVICE_ACTION);
+        Intent intent = new Intent(AppConstant.ActionString.MUSIC_PALY_SERVICE_ACTION);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE); // bindService
     }
 
@@ -114,18 +92,23 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mMusicService = IMusicControlService.Stub.asInterface(service);
+            try {
+                mMusicService.registerCallback(mMusicCallBack);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
             playMusic();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             mMusicService = null;
+            mMusicCallBack = null;
         }
     };
 
     @Override
     protected void onStop() {
-        unregisterReceiver(mReceiver);
         super.onStop();
     }
 
@@ -133,17 +116,17 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
     public void onClick(View v) {
         try {
             switch (v.getId()) {
-                case R.id.ibtnPrevious :
+                case R.id.ibtnPrevious:
                     mMusicService.playPrevious();
                     break;
-                case R.id.ivPlay :
+                case R.id.ivPlay:
                     if (mMusicService.isPlaying()) {
                         mMusicService.pauseMusic();
                     } else {
                         mMusicService.resumeMusic();
                     }
                     break;
-                case R.id.ibtnNext :
+                case R.id.ibtnNext:
                     mMusicService.playNext();
                     break;
             }
@@ -174,7 +157,7 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
             @Override
             public void onStopTrackingTouch(SeekBar arg0) {
                 try {
-                    mMusicService.seekTo(mMusicService.getNowPlayingTime());
+                    mMusicService.seekTo(mMusicService.getCurrentSeekTime());
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -187,73 +170,39 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
 
             @Override
             public void onProgressChanged(SeekBar arg0, int position, boolean arg2) {
-                try {
-                    mMusicService.setNowPlayingTime(position);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
-        
-        
+
+
     }
-    
-    
+
+
     private void setSeekbar(int howmuch) {
         if (seekBar != null) {
             seekBar.setMax(howmuch);
         }
     }
 
-    public void setMusicInfo(String title, String artist) {
-        txtTitle.setText(title);
-        txtArtist.setText(artist);
-    }
 
-    private class MusicPlayServiceReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int code = intent.getIntExtra(MusicBrodcastCode.KEY, -1);
-            switch (code) {
-                case MusicBrodcastCode.CODE_CHANGE_PLAY_BUTTON_BG :
-                    setPlayBtnBg();
-                    break;
-                case MusicBrodcastCode.CODE_SET_SEEKBAR_MAX:
-                    int durationInt;
-                    try {
-                        durationInt = mMusicService.getNowDurationInt();
-                        int time = mMusicService.getNowPlayingTime();
-                        setSeekTxt(time);
-                        setSeekbar(durationInt);
-                    } catch (RemoteException e1) {
-                        e1.printStackTrace();
-                    }
-                    break;
-                case MusicBrodcastCode.CODE_SET_SEEKBAR_TXT_DURATION :
-                    try {
-                        String duration = mMusicService.getNowDurationString();
-                        txtSeekDuration.setText(duration);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case MusicBrodcastCode.CODE_CHANGE_MUSIC_INFO :
-                    String title;
-                    try {
-                        title = mMusicService.getNowPlayingTitle();
-                        String artist = mMusicService.getNowPlayingArtist();
-                        setMusicInfo(title, artist);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
+    /**
+     * 更新音乐信息，时长，标题，歌手
+     */
+    private void refreshMusicInfo() {
+        MusicInfo musicInfo;
+        try {
+            musicInfo = mMusicService.getMusicInfo();
+            //设置音乐时长
+            seekBar.setMax(mMusicService.getDuration());
+            txtSeekDuration.setText(musicInfo.getDuration());
+            txtTitle.setText(musicInfo.getTitleString());
+            txtArtist.setText(musicInfo.getArtistString());
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
-
     }
 
-    //���ý���������ʱ����ʾ
+    //设置进度条左右时间显示
     private void setSeekTxt(int time) {
         String timeStr;
         time /= 1000;
@@ -266,4 +215,78 @@ public class MusicPlayActivity extends ActionBarActivity implements OnClickListe
         txtSeekPlayTime.setText(timeStr);
     }
 
+    private void refreshSeekBar(int position) {
+        DLOG.i("SeekThread","run!"+position);
+        try {
+            if (seekBar != null && mMusicService.isPlaying()) {
+                DLOG.i("SeekThread", "run!" + position);
+                seekBar.setProgress(position);
+                setSeekTxt(position);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case AppConstant.Msg.MSG_PLAYER_SONG_CHANGE:
+                    DLOG.i("SeekThread", "MSG_PLAYER_SONG_CHANGE!" );
+                    refreshMusicInfo();
+                    break;
+                case AppConstant.Msg.MSG_PLAYER_STATUS_CHANGE:
+                    refreshSeekBar(Integer.parseInt((String) msg.obj));
+                    break;
+                case AppConstant.Msg.MSG_PLAYER_ALBUM_RETRIEVED:
+                    //refreshAlbum((String) msg.obj);
+                    break;
+                case AppConstant.Msg.MSG_CURRENT_TRACK_LRC:
+                    //getCurLrc();
+                    break;
+                case AppConstant.Msg.CODE_CHANGE_PLAY_BUTTON_BG:
+                    setPlayBtnBg();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+
+    class MusicCallBack extends ICallback.Stub {
+
+        @Override
+        public void callback(int msg, String content) throws RemoteException {
+            switch (msg) {
+                // 歌曲切换
+                case AppConstant.Msg.MSG_PLAYER_SONG_CHANGE:
+                    mHandler.sendEmptyMessage(AppConstant.Msg.MSG_PLAYER_SONG_CHANGE);
+                    break;
+                // 播放模式改变
+                case AppConstant.Msg.MSG_PLAYER_MODE_CHANGE:
+                    break;
+                // 播放状态改变
+                case AppConstant.Msg.MSG_PLAYER_STATUS_CHANGE:
+                    mHandler.obtainMessage(
+                            AppConstant.Msg.MSG_PLAYER_STATUS_CHANGE, content)
+                            .sendToTarget();
+                    break;
+                case AppConstant.Msg.MSG_PLAYER_ALBUM_RETRIEVED:
+                    mHandler.obtainMessage(
+                            AppConstant.Msg.MSG_PLAYER_ALBUM_RETRIEVED, content)
+                            .sendToTarget();
+                    break;
+                case AppConstant.Msg.CODE_CHANGE_PLAY_BUTTON_BG:
+                    mHandler.obtainMessage(
+                            AppConstant.Msg.CODE_CHANGE_PLAY_BUTTON_BG, content)
+                            .sendToTarget();
+                    break;
+                // 歌词获取成功
+                case AppConstant.Msg.MSG_CURRENT_TRACK_LRC:
+                    mHandler.sendEmptyMessage(AppConstant.Msg.MSG_CURRENT_TRACK_LRC);
+                    break;
+            }
+        }
+    }
 }
